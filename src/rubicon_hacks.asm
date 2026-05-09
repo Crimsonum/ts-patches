@@ -25,7 +25,7 @@
 @SET 0x004ED5AA, {db 0x4E, 0x01}
 
 ; Decrease subterranean horizontal movement speed
-@SET 0x006D8A9E, {db 0x29}
+@SET 0x006D8A9E, {db 0x20}	; def 33
 
 ; "Overlay tiberium fix thing, 4th etc"
 @SET 0x00644DF9, {mov dword [esi+0ACh], 0Ch}
@@ -38,6 +38,9 @@
 ; orange (6). Used with unit selection box (select.shp) color change for limpet affected frame.
 @SET 0x0062B2E4, {mov dword [esp+1Ch], 0x06}
 @SET 0x0062C0C1, {mov edi, 0x06}
+
+; Replace SGRYSMK1 hardcoding, used by damaged aircraft
+@SET 0x006F2B78, {db "SREDSMK1"}
 
 ; Erase HMEC hardcoding
 @SET 0x00706A8C, {db 0,0,0,0}
