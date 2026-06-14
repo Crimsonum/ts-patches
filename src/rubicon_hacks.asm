@@ -2,9 +2,6 @@
 %include "macros/datatypes.inc"
 %include "TiberianSun.inc"
 
-; Change bullet trailer separation
-@SET 0x004447C5, {db 0x02}
-
 ; Increase max. bounces of elastic projectiles [commented out, causes issues on high bridges]
 ;@SET 0x00445516, {db 0x04}
 
@@ -24,8 +21,14 @@
 ; Increase Ion Storm warning speech frequency
 @SET 0x004ED5AA, {db 0x4E, 0x01}
 
-; Decrease subterranean horizontal movement speed
-@SET 0x006D8A9E, {db 0x20}	; def 33
+; Change building selection box color (palette index)
+;@SET 0x0062B2DC, {db 0x7C}
+;@SET 0x0062C0BB, {db 0x7C}
+
+; Building selection box color change when affected by limpet from palette index yellow (5) to
+; red (6). Used with unit selection box (select.shp) color change for limpet affected frame.
+@SET 0x0062B2E4, {mov dword [esp+1Ch], 0x06}
+@SET 0x0062C0C1, {mov edi, 0x06}
 
 ; "Overlay tiberium fix thing, 4th etc"
 @SET 0x00644DF9, {mov dword [esi+0ACh], 0Ch}
@@ -34,13 +37,11 @@
 @SET 0x0065B9E6, {mov byte [esi+4D0h], 1} ;byte ptr
 @SET 0x0065BF3D, {mov [esi+21h], eax}
 
-; Building selection box color change when affected by limpet from palette index yellow (5) to
-; orange (6). Used with unit selection box (select.shp) color change for limpet affected frame.
-@SET 0x0062B2E4, {mov dword [esp+1Ch], 0x06}
-@SET 0x0062C0C1, {mov edi, 0x06}
-
 ; Replace SGRYSMK1 hardcoding, used by damaged aircraft
 @SET 0x006F2B78, {db "SREDSMK1"}
+
+; Decrease subterranean horizontal movement speed
+@SET 0x006D8A9E, {db 0x20}	; def 33
 
 ; Erase HMEC hardcoding
 @SET 0x00706A8C, {db 0,0,0,0}
@@ -106,6 +107,9 @@ sstring str_LanguageDLLNotFound, "Language.dll not found, please start Rubicon.e
 @SET 0x0068621A, push src_RubiconLong
 @SET 0x006862BD, push src_RubiconLong
 @SET 0x006862C2, push src_RubiconLong
+
+; Change bullet trailer separation
+@SET 0x004447C5, {db 0x02}
 
 ; Remove framework mode mmt/mms loading
 @LJMP 0x004F5182, 0x004F528C    ; jmp loc_4F528C
